@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 
 public class Main {
     public static void main(String[] args) {
-        insertSeller();
+        updataSalary();
     }
 
     private static void selectDepartments() {
@@ -46,8 +46,7 @@ public class Main {
         try {
             conn = DB.getConnection();
 
-            st = conn.prepareStatement("USE coursejdbc");
-            st.executeQuery();
+            useDatabase(conn);
 
             st = conn.prepareStatement(
                     "INSERT INTO seller "
@@ -84,4 +83,39 @@ public class Main {
         }
     }
 
+    private static void updataSalary() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = DB.getConnection();
+            useDatabase(conn);
+
+            ps = conn.prepareStatement(
+                    "UPDATE seller "
+                    + "SET BaseSalary = BaseSalary + ?"
+                    + "WHERE "
+                    + "(DepartmentId = ?)"
+            );
+            ps.setDouble(1, 200.00);
+            ps.setInt(2, 2);
+
+            int rowsAffected = ps.executeUpdate();
+            System.out.println("Done! Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DB.closeStatement(ps);
+            DB.closeConnection();
+        }
+    }
+
+    private static void useDatabase(Connection conn) {
+        try {
+            PreparedStatement st = conn.prepareStatement("USE coursejdbc");
+            st.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
