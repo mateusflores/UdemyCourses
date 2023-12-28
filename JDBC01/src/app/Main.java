@@ -2,6 +2,7 @@ package src.app;
 
 import src.db.DB;
 import src.db.DbException;
+import src.db.DbIntegrityException;
 
 import javax.swing.*;
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.text.SimpleDateFormat;
 
 public class Main {
     public static void main(String[] args) {
-        updataSalary();
+        deleteSeller();
     }
 
     private static void selectDepartments() {
@@ -109,6 +110,33 @@ public class Main {
             DB.closeConnection();
         }
     }
+
+    private static void deleteSeller() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = DB.getConnection();
+            useDatabase(conn);
+
+            ps = conn.prepareStatement("DELETE FROM department "
+                    + "WHERE "
+                    + "Id = ?"
+            );
+
+            ps.setInt(1, 5);
+
+            int rowsAffected = ps.executeUpdate();
+            System.out.println("Done! Rows affected: " + rowsAffected);
+        } catch (SQLException e) {
+            throw new DbIntegrityException(e.getMessage());
+        } finally {
+            DB.closeStatement(ps);
+            DB.closeConnection();
+        }
+
+    }
+
 
     private static void useDatabase(Connection conn) {
         try {
