@@ -15,6 +15,7 @@ public class DB {
                 Properties props = loadProperties();
                 String url = props.getProperty("dburl");
                 conn = DriverManager.getConnection(url, props);
+                useDatabase(conn);
             } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
@@ -59,6 +60,15 @@ public class DB {
             } catch (SQLException sqle) {
                 throw new DbException(sqle.getMessage());
             }
+        }
+    }
+
+    private static void useDatabase(Connection conn) {
+        try {
+            Statement st = conn.createStatement();
+            st.execute("USE coursejdbc");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
