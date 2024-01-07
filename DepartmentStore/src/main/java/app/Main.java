@@ -31,9 +31,16 @@ public class Main {
             System.out.println(s);
         }
 
+        /*
         System.out.println("\n---- TEST 4: Insert Seller ----");
         Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(1999,06,21), 4000.00, department);
         sellerDao.insert(newSeller);
         System.out.println("Inserted seller! New ID: " + newSeller.getId());
+         */
+
+        System.out.println("\n---- TEST 4: Seller Update");
+        seller = sellerDao.findById(9);
+        seller.setName("Mateus");
+        sellerDao.update(seller);
     }
 }
