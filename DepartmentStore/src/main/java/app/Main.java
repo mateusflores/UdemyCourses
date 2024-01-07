@@ -38,9 +38,12 @@ public class Main {
         System.out.println("Inserted seller! New ID: " + newSeller.getId());
          */
 
-        System.out.println("\n---- TEST 4: Seller Update");
+        System.out.println("\n---- TEST 4: Seller Update ----");
         seller = sellerDao.findById(9);
         seller.setName("Mateus");
         sellerDao.update(seller);
+
+        System.out.println("\n---- TEST 5: Seller Delete ----");
+        sellerDao.deleteById(6);
     }
 }
