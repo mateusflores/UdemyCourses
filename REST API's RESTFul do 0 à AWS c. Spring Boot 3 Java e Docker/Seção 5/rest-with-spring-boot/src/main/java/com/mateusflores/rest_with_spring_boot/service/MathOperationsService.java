@@ -7,27 +7,30 @@ import java.util.List;
 
 @Service
 public class MathOperationsService {
-    public static Double sum(Double numberOne, Double numberTwo) {
+    public MathOperationsService() {
+    }
+
+    public Double sum(Double numberOne, Double numberTwo) {
         return numberOne + numberTwo;
     }
 
-    public static Double subtraction(Double numberOne, Double numberTwo) {
+    public Double subtraction(Double numberOne, Double numberTwo) {
         return numberOne - numberTwo;
     }
 
-    public static Double multiplication(Double numberOne, Double numberTwo) {
+    public Double multiplication(Double numberOne, Double numberTwo) {
         return numberOne * numberTwo;
     }
 
-    public static Double division(Double numberOne, Double numberTwo) {
+    public Double division(Double numberOne, Double numberTwo) {
         return numberOne / numberTwo;
     }
 
-    public static Double squareRoot(Double number) {
+    public Double squareRoot(Double number) {
         return Math.sqrt(number);
     }
 
-    public static Double mean(List<String> numbers) {
+    public Double mean(List<String> numbers) {
         return numbers.stream().mapToDouble(NumberConverter::convertToDouble).sum()
                 / numbers.size();
     }
